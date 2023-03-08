@@ -30,3 +30,21 @@ GymPass
 - [ ] Os dados da aplicação precisam estar persitidos em um banco PostgreSQL;
 - [ ] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token)
+
+## Como rodar o projeto
+
+1. Instale as dependências
+
+`npm install`
+
+2. Crie e preencha as variáveis de ambiente no arquivo `.env`
+
+`cp .env.example .env`
+
+3. Prepare o Husky
+
+`npm run prepare`
+
+4. Rode o projeto
+
+`npm run start:dev`
