@@ -33,6 +33,16 @@ GymPass
 
 ## Como rodar o projeto
 
+0. Configure ou inicie o docker
+
+```bash
+docker run --name gym-pass-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=gympass -p 5432:5432  bitnami/postgresql
+```
+
+```bash
+docker start gym-pass-pg
+```
+
 1. Instale as dependências
 
 `npm install`
