@@ -8,6 +8,9 @@
   },
   "scripts": {
     "build": "tsup src --out-dir build",
+    "db:generate": "npx prisma generate",
+    "db:migrate": "npx prisma migrate dev --",
+    "db:open": "npx prisma studio",
     "lint": "eslint --ext \".ts\" --ignore-path .gitignore .",
     "lintfix": "npm run lint -- --fix",
     "prepare": "husky install",
