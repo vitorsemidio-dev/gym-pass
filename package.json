@@ -18,6 +18,7 @@
     "start": "node build/server.js",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch"
   },
   "lint-staged": {
@@ -39,6 +40,7 @@
     "@rocketseat/eslint-config": "1.2.0",
     "@types/bcryptjs": "2.4.2",
     "@types/node": "18.14.6",
+    "@vitest/coverage-c8": "0.29.2",
     "eslint": "8.35.0",
     "husky": "8.0.3",
     "lint-staged": "13.1.2",
