@@ -18,6 +18,13 @@ export class CheckInUseCase {
     gymId,
     userId,
   }: CheckInUseCaseInput): Promise<CheckInUseCaseOutput> {
+    const checkInOnSameDay =
+      await this.prismaCheckInsRepository.findByUserIdOnDate(userId, new Date())
+
+    if (checkInOnSameDay) {
+      throw new Error('User already checked in on this day')
+    }
+
     const checkIn = await this.prismaCheckInsRepository.create({
       gym_id: gymId,
       user_id: userId,
