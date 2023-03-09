@@ -1,3 +1,4 @@
+import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists.error'
 import { compare } from 'bcryptjs'
 import { describe, expect, it } from 'vitest'
 
@@ -21,5 +22,25 @@ describe('Register Use Case', () => {
     )
 
     expect(isPasswordCorrectlyHashed).toBe(true)
+  })
+
+  it('should not be able to register with same email twice', async () => {
+    const prismaUsersRepository = new InMemoryUsersRepository()
+    const registerUseCase = new RegisterUseCase(prismaUsersRepository)
+    const email = 'john_doe@test.com'
+
+    await registerUseCase.execute({
+      name: 'John Doe',
+      email,
+      password: '123456',
+    })
+
+    await expect(
+      registerUseCase.execute({
+        name: 'John Doe',
+        email,
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })
