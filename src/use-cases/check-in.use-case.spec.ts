@@ -42,8 +42,7 @@ describe('Check-in Use Case', () => {
     ).rejects.toBeInstanceOf(Error)
   })
 
-  // ! This test is failing
-  it.skip('should be able to check in twice but in different days', async () => {
+  it('should be able to check in twice but in different days', async () => {
     vi.setSystemTime(new Date(2000, 1, 1, 13))
 
     await sut.execute({
