@@ -24,4 +24,12 @@ export class InMemoryGymsRepository implements GymsRepository {
     const gym = this.data.find((gym) => gym.id === id)
     return gym || null
   }
+
+  async searchMany(query: string, page: number) {
+    const itensPerPage = 20
+    const gyms = this.data
+      .filter((gym) => gym.title.includes(query))
+      .slice((page - 1) * itensPerPage, page * itensPerPage)
+    return gyms
+  }
 }
