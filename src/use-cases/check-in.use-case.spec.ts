@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins.repository'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms.repository'
 import { CheckInUseCase } from '@/use-cases/check-in.use-case'
+import { MaxDistanceError } from '@/use-cases/errors/max-distance.error'
+import { MaxNumberOfCheckInsError } from '@/use-cases/errors/max-number-of-check-ins.error'
 
 let prismaCheckInsRepository: InMemoryCheckInsRepository
 let prismaGymsRepository: InMemoryGymsRepository
@@ -54,7 +56,7 @@ describe('Check-in Use Case', () => {
         userLatitude: -22,
         userLongitude: -42,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in twice but in different days', async () => {
@@ -94,6 +96,6 @@ describe('Check-in Use Case', () => {
         userLatitude: -22,
         userLongitude: -42,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
