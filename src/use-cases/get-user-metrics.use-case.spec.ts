@@ -3,29 +3,29 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins.repository'
 import { GetUserMetricsUseCase } from '@/use-cases/get-user-metrics.use-case'
 
-let prismaCheckInsRepository: InMemoryCheckInsRepository
+let checkInsRepository: InMemoryCheckInsRepository
 let sut: GetUserMetricsUseCase
 
 describe('Get User Metrics Use Case', () => {
   beforeEach(() => {
-    prismaCheckInsRepository = new InMemoryCheckInsRepository()
-    sut = new GetUserMetricsUseCase(prismaCheckInsRepository)
+    checkInsRepository = new InMemoryCheckInsRepository()
+    sut = new GetUserMetricsUseCase(checkInsRepository)
   })
 
   it('should be able to get check-ins count from user metrics', async () => {
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_02',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_02',
     })
@@ -38,19 +38,19 @@ describe('Get User Metrics Use Case', () => {
   })
 
   it('should be able to get check-ins count from specific user metrics', async () => {
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_02',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_02',
     })
@@ -74,19 +74,19 @@ describe('Get User Metrics Use Case', () => {
       checkInsCountOnGym01 + checkInsCountOnGym02 + checkInsCountOnGym03
 
     for (let i = 0; i < checkInsCountOnGym01; i++) {
-      await prismaCheckInsRepository.create({
+      await checkInsRepository.create({
         gym_id: 'gym_id_01',
         user_id: 'user_id_01',
       })
     }
     for (let i = 0; i < checkInsCountOnGym02; i++) {
-      await prismaCheckInsRepository.create({
+      await checkInsRepository.create({
         gym_id: 'gym_id_02',
         user_id: 'user_id_01',
       })
     }
     for (let i = 0; i < checkInsCountOnGym03; i++) {
-      await prismaCheckInsRepository.create({
+      await checkInsRepository.create({
         gym_id: 'gym_id_03',
         user_id: 'user_id_01',
       })

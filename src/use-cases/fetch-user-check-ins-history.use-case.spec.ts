@@ -1,31 +1,31 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins.repository'
-import { FetchUserCheckInsUseCase } from './fetch-user-check-ins-history.use-case'
+import { FetchUserCheckInsUseCase } from '@/use-cases/fetch-user-check-ins-history.use-case'
 
-let prismaCheckInsRepository: InMemoryCheckInsRepository
+let checkInsRepository: InMemoryCheckInsRepository
 let sut: FetchUserCheckInsUseCase
 
 describe('Fetch User Check-ins Use Case', () => {
   beforeEach(() => {
-    prismaCheckInsRepository = new InMemoryCheckInsRepository()
-    sut = new FetchUserCheckInsUseCase(prismaCheckInsRepository)
+    checkInsRepository = new InMemoryCheckInsRepository()
+    sut = new FetchUserCheckInsUseCase(checkInsRepository)
   })
 
   it('should be able to fetch check-ins history', async () => {
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_02',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_02',
     })
@@ -53,19 +53,19 @@ describe('Fetch User Check-ins Use Case', () => {
   })
 
   it('should be able to fetch check-ins history from specific user', async () => {
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_02',
       user_id: 'user_id_01',
     })
-    await prismaCheckInsRepository.create({
+    await checkInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_02',
     })
@@ -85,7 +85,7 @@ describe('Fetch User Check-ins Use Case', () => {
 
   it('should be able to fetch paginated check-ins history', async () => {
     for (let i = 1; i <= 22; i++) {
-      await prismaCheckInsRepository.create({
+      await checkInsRepository.create({
         gym_id: `gym_id_${i}`,
         user_id: 'user_id_01',
       })

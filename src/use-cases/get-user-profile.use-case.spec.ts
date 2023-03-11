@@ -5,17 +5,17 @@ import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-user
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found.error'
 import { GetUserProfileUseCase } from '@/use-cases/get-user-profile.use-case'
 
-let prismaUsersRepository: InMemoryUsersRepository
+let usersRepository: InMemoryUsersRepository
 let sut: GetUserProfileUseCase
 
 describe('Get User Profile Use Case', () => {
   beforeEach(() => {
-    prismaUsersRepository = new InMemoryUsersRepository()
-    sut = new GetUserProfileUseCase(prismaUsersRepository)
+    usersRepository = new InMemoryUsersRepository()
+    sut = new GetUserProfileUseCase(usersRepository)
   })
 
   it('should be able to get user profile', async () => {
-    const userCreated = await prismaUsersRepository.create({
+    const userCreated = await usersRepository.create({
       name: 'John Doe',
       email: 'john_doe@test.com',
       password_hash: await hash('123456', 6),

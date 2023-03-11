@@ -5,17 +5,17 @@ import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-user
 import { AuthenticateUseCase } from '@/use-cases/authenticate.use-case'
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials.error'
 
-let prismaUsersRepository: InMemoryUsersRepository
+let usersRepository: InMemoryUsersRepository
 let sut: AuthenticateUseCase
 
 describe('Authenticate Use Case', () => {
   beforeEach(() => {
-    prismaUsersRepository = new InMemoryUsersRepository()
-    sut = new AuthenticateUseCase(prismaUsersRepository)
+    usersRepository = new InMemoryUsersRepository()
+    sut = new AuthenticateUseCase(usersRepository)
   })
 
   it('should be able to authenticate user', async () => {
-    await prismaUsersRepository.create({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'john_doe@test.com',
       password_hash: await hash('123456', 6),
@@ -32,7 +32,7 @@ describe('Authenticate Use Case', () => {
   it('should not be able to authenticate with wrong email', async () => {
     const wrongEmail = 'wrong-email@test.com'
 
-    await prismaUsersRepository.create({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'john_doe@test.com',
       password_hash: await hash('123456', 6),
@@ -49,7 +49,7 @@ describe('Authenticate Use Case', () => {
   it('should not be able to authenticate with wrong password', async () => {
     const wrongPassword = 'wrong-password'
 
-    await prismaUsersRepository.create({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'john_doe@test.com',
       password_hash: await hash('123456', 6),
@@ -64,9 +64,6 @@ describe('Authenticate Use Case', () => {
   })
 
   it('should not be able to authenticate with no exists email', async () => {
-    const prismaUsersRepository = new InMemoryUsersRepository()
-    const sut = new AuthenticateUseCase(prismaUsersRepository)
-
     await expect(
       sut.execute({
         email: 'john_doe@test.com',

@@ -6,17 +6,17 @@ import { CheckInUseCase } from '@/use-cases/check-in.use-case'
 import { MaxDistanceError } from '@/use-cases/errors/max-distance.error'
 import { MaxNumberOfCheckInsError } from '@/use-cases/errors/max-number-of-check-ins.error'
 
-let prismaCheckInsRepository: InMemoryCheckInsRepository
-let prismaGymsRepository: InMemoryGymsRepository
+let checkInsRepository: InMemoryCheckInsRepository
+let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
 describe('Check-in Use Case', () => {
   beforeEach(async () => {
-    prismaCheckInsRepository = new InMemoryCheckInsRepository()
-    prismaGymsRepository = new InMemoryGymsRepository()
-    sut = new CheckInUseCase(prismaCheckInsRepository, prismaGymsRepository)
+    checkInsRepository = new InMemoryCheckInsRepository()
+    gymsRepository = new InMemoryGymsRepository()
+    sut = new CheckInUseCase(checkInsRepository, gymsRepository)
     vi.useFakeTimers()
-    await prismaGymsRepository.create({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'Gym 01',
       latitude: -22,
@@ -82,7 +82,7 @@ describe('Check-in Use Case', () => {
   })
 
   it('should not be able to check in on distant gym', async () => {
-    await prismaGymsRepository.create({
+    await gymsRepository.create({
       id: 'gym-02',
       title: 'Gym 02',
       latitude: -23,

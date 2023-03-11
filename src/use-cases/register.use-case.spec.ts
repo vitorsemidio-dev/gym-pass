@@ -5,13 +5,13 @@ import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-user
 import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists.error'
 import { RegisterUseCase } from '@/use-cases/register.use-case'
 
-let prismaUsersRepository: InMemoryUsersRepository
+let usersRepository: InMemoryUsersRepository
 let sut: RegisterUseCase
 
 describe('Register Use Case', () => {
   beforeEach(() => {
-    prismaUsersRepository = new InMemoryUsersRepository()
-    sut = new RegisterUseCase(prismaUsersRepository)
+    usersRepository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(usersRepository)
   })
 
   it('should be able to register', async () => {
