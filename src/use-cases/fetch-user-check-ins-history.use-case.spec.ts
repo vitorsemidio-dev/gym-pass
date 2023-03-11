@@ -52,7 +52,7 @@ describe('Fetch User Check-ins Use Case', () => {
     ])
   })
 
-  it('should be able to fetch check-ins history from especific user', async () => {
+  it('should be able to fetch check-ins history from specific user', async () => {
     await prismaCheckInsRepository.create({
       gym_id: 'gym_id_01',
       user_id: 'user_id_01',
