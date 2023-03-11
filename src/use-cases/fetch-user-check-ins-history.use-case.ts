@@ -4,6 +4,7 @@ import { CheckInsRepository } from '@/repositories/check-ins.repository'
 
 type FetchUserCheckInsUseCaseInput = {
   userId: string
+  page: number
 }
 
 type FetchUserCheckInsUseCaseOutput = {
@@ -15,9 +16,11 @@ export class FetchUserCheckInsUseCase {
 
   async execute({
     userId,
+    page = 1,
   }: FetchUserCheckInsUseCaseInput): Promise<FetchUserCheckInsUseCaseOutput> {
     const checkIns = await this.prismaCheckInsRepository.findManyByUserId(
       userId,
+      page,
     )
     return {
       checkIns,
