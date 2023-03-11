@@ -47,6 +47,7 @@ export class InMemoryGymsRepository implements GymsRepository {
           longitude: item.longitude.toNumber(),
         },
       )
+      console.log(distance)
       return distance <= maxDistanceInKilometers
     })
     return gyms

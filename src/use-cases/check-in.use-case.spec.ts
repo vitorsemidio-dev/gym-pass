@@ -5,6 +5,7 @@ import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms.
 import { CheckInUseCase } from '@/use-cases/check-in.use-case'
 import { MaxDistanceError } from '@/use-cases/errors/max-distance.error'
 import { MaxNumberOfCheckInsError } from '@/use-cases/errors/max-number-of-check-ins.error'
+import { generateRandomCoordinate } from '@/utils/generate-random-coordinate'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
@@ -82,19 +83,24 @@ describe('Check-in Use Case', () => {
   })
 
   it('should not be able to check in on distant gym', async () => {
+    const nearCoordinate = {
+      latitude: -22,
+      longitude: -42,
+    }
+    const distanceCoordinates = generateRandomCoordinate(nearCoordinate, 1, 2)
     await gymsRepository.create({
       id: 'gym-02',
       title: 'Gym 02',
-      latitude: -23,
-      longitude: -43,
+      latitude: distanceCoordinates.latitude,
+      longitude: distanceCoordinates.longitude,
     })
 
     await expect(
       sut.execute({
         userId: 'user-01',
         gymId: 'gym-02',
-        userLatitude: -22,
-        userLongitude: -42,
+        userLatitude: nearCoordinate.latitude,
+        userLongitude: nearCoordinate.longitude,
       }),
     ).rejects.toBeInstanceOf(MaxDistanceError)
   })
