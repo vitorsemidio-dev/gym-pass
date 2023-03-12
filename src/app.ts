@@ -1,3 +1,4 @@
+import fastifyCookie from '@fastify/cookie'
 import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
@@ -9,9 +10,22 @@ import { usersRoutes } from '@/http/controllers/users/routes'
 
 export const app = fastify()
 
+// Plugins - JWT
 app.register(fastifyJwt, {
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
   secret: env.JWT_SECRET,
+  sign: {
+    expiresIn: '10m',
+  },
 })
+
+// Plugins - Cookie
+app.register(fastifyCookie)
+
+// Plugins - Routes
 app.register(checkInsRoutes)
 app.register(gymsRoutes)
 app.register(usersRoutes)
