@@ -27,6 +27,15 @@ jobs:
 
       - run: npm ci
 
+      - name: Health Check
+        run: |
+          if nc -zvw3 localhost 5432; then
+            echo "Database is up and running!"
+          else
+            echo "Database is down!"
+            exit 1
+          fi
+
       - run: npm run test:e2e
         env:
           JWT_SECRET: testing
