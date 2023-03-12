@@ -21,9 +21,11 @@
     "test:install-prisma-environment": "npm link vitest-environment-prisma",
     "test:coverage": "vitest run --coverage",
     "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
+    "pretest:e2e:watch": "npm run pretest:e2e",
     "test:e2e": "vitest run --dir src/http",
+    "test:e2e:watch": "vitest --dir src/http",
     "test:unit": "vitest run --dir src/use-cases",
-    "test:unit:watch": "vitest watch --dir src/use-cases",
+    "test:unit:watch": "vitest --dir src/use-cases",
     "test:ui": "vitest --ui"
   },
   "lint-staged": {
@@ -35,6 +37,7 @@
   "dependencies": {
     "@fastify/jwt": "6.7.0",
     "@prisma/client": "4.11.0",
+    "@types/supertest": "2.0.12",
     "bcryptjs": "2.4.3",
     "dayjs": "1.11.7",
     "dotenv": "16.0.3",
@@ -54,6 +57,7 @@
     "lint-staged": "13.1.2",
     "npm-run-all": "4.1.5",
     "prisma": "4.11.0",
+    "supertest": "6.3.3",
     "tsup": "6.6.3",
     "tsx": "3.12.3",
     "typescript": "4.9.5",
