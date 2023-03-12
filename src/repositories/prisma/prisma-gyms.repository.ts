@@ -3,10 +3,6 @@ import { Gym, Prisma } from '@prisma/client'
 import { GymsRepository, SearchNearbyParams } from '../gyms.repository'
 
 export class PrismaGymsRepository implements GymsRepository {
-  searchNearby(params: SearchNearbyParams): Promise<Gym[]> {
-    throw new Error('Method not implemented.')
-  }
-
   async create(data: Prisma.GymCreateInput): Promise<Gym> {
     const gym = await prisma.gym.create({ data })
     return gym
@@ -33,6 +29,25 @@ export class PrismaGymsRepository implements GymsRepository {
       skip: (page - 1) * itensPerPage,
       take: itensPerPage,
     })
+    return gyms
+  }
+
+  async searchNearby({
+    latitude,
+    longitude,
+  }: SearchNearbyParams): Promise<Gym[]> {
+    const MAX_DISTANCE_IN_KILOMETERS = 10
+    const gyms = await prisma.$queryRaw<Gym[]>`
+      SELECT *
+      FROM gyms
+      WHERE (
+          6371 * acos(
+              cos(radians(${latitude})) * cos(radians(latitude)) *
+              cos(radians(longitude) - radians(${longitude})) +
+              sin(radians(${latitude})) * sin(radians(latitude))
+          )
+      ) <= ${MAX_DISTANCE_IN_KILOMETERS}
+    `
     return gyms
   }
 }
