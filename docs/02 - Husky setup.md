@@ -8,7 +8,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{ts}": "eslint --cache"
+    "*.ts": "eslint --cache"
   },
   "dependencies": {},
   "devDependencies": {

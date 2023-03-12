@@ -23,7 +23,7 @@
     "test:watch": "vitest watch"
   },
   "lint-staged": {
-    "*.{ts}": "eslint --cache"
+    "*.ts": "eslint --cache"
   },
   "keywords": [],
   "author": "",
