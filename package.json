@@ -17,10 +17,14 @@
     "prepare": "husky install",
     "start": "node build/server.js",
     "start:dev": "tsx watch src/server.ts",
-    "test": "vitest run",
+    "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
+    "test:install-prisma-environment": "npm link vitest-environment-prisma",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
-    "test:watch": "vitest watch"
+    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
+    "test:e2e": "vitest run --dir src/http",
+    "test:unit": "vitest run --dir src/use-cases",
+    "test:unit:watch": "vitest watch --dir src/use-cases",
+    "test:ui": "vitest --ui"
   },
   "lint-staged": {
     "*.ts": "eslint --cache"
@@ -48,6 +52,7 @@
     "eslint": "8.35.0",
     "husky": "8.0.3",
     "lint-staged": "13.1.2",
+    "npm-run-all": "4.1.5",
     "prisma": "4.11.0",
     "tsup": "6.6.3",
     "tsx": "3.12.3",
