@@ -37,6 +37,12 @@ Prepare o Husky
 npm run prepare
 ```
 
+Execute as migrations
+
+```bash
+npm run db:migrate-dev
+```
+
 Rode o projeto
 
 ```bash
