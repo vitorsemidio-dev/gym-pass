@@ -1,8 +1,53 @@
-# App
+# 💪🎟️ Gym Pass
 
-GymPass
+<p align="center">
+  <img src="https://img.shields.io/static/v1?logo=Fastify&logoColor=000000&label=Fastify&message=Fastify&color=000000" alt="Logo Fastify" />
+  <img src="https://img.shields.io/static/v1?logo=Node.js&logoColor=339933&label=Node.js&message=Node.js&color=339933" alt="Logo Node.js" />
+  <img src="https://img.shields.io/static/v1?logo=Prisma&logoColor=2D3748&label=Prisma&message=Prisma&color=2D3748" alt="Logo Prisma" />
+  <img src="https://img.shields.io/static/v1?logo=Vitest&logoColor=6E9F18&label=Vitest&message=Vitest&color=6E9F18" alt="Logo Vitest" />
+</p>
 
-## RFs (Requisitos funcionais)
+A GymPass API é uma aplicação que permite o gerenciamento de check-ins em academias. Com ela, é possível realizar o cadastro de usuários e academias, além de permitir a busca de academias por nome.
+
+---
+
+## 🧭 Como rodar o projeto
+
+Inicie o banco de dados
+
+```bash
+docker-compose up -d
+```
+
+Instale as dependências
+
+```bash
+npm install
+```
+
+Crie e preencha as variáveis de ambiente no arquivo `.env`
+
+```bash
+cp .env.example .env
+```
+
+Prepare o Husky
+
+```bash
+npm run prepare
+```
+
+Rode o projeto
+
+```bash
+npm run start:dev
+```
+
+---
+
+## Funcionalidades do projeto
+
+### RFs (Requisitos funcionais)
 
 - [x] Deve ser possível se cadastrar;
 - [x] Deve ser possível se autenticar;
@@ -15,7 +60,7 @@ GymPass
 - [x] Deve ser possível validar o check-in de usuário;
 - [x] Deve ser possível cadastrar uma academia;
 
-## RNs (Regras de negócio)
+### RNs (Regras de negócio)
 
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
 - [x] O usuário não poder fazer 2 check-ins no mesmo dia;
@@ -24,33 +69,32 @@ GymPass
 - [x] O check-in só pode ser validado por administradores;
 - [x] A academia só pode ser cadastrada por administradores;
 
-## RNFs (Requisitos não-funcionais)
+### RNFs (Requisitos não-funcionais)
 
 - [x] A senha do usuário precisa estar criptografada;
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [x] O usuário deve ser identificado por um JWT (JSON Web Token)
 
-## Como rodar o projeto
+---
 
-0. Inicie o banco de dados
+## 🔜 Próximas etapas
+
+- [ ] Criar documentação API
+- [ ] Botão Insomnia
+
+---
+
+## 🧪 Testes
+
+Utilize o comando a seguir para executar os testes unitários
 
 ```bash
-docker-compose up -d
+npm run test:unit
 ```
 
-1. Instale as dependências
+Utilize o comando a seguir para executar os testes e2e
 
-`npm install`
-
-2. Crie e preencha as variáveis de ambiente no arquivo `.env`
-
-`cp .env.example .env`
-
-3. Prepare o Husky
-
-`npm run prepare`
-
-4. Rode o projeto
-
-`npm run start:dev`
+```bash
+npm run test:e2e
+```
