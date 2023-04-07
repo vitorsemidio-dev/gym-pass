@@ -84,6 +84,10 @@ npm run start:dev
 
 ---
 
+## 🗃️ Diagrama Entidade Relacionamento
+
+![](./prisma/ERD.svg)
+
 ## 🔜 Próximas etapas
 
 - [ ] Criar documentação API
